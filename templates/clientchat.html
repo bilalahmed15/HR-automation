@@ -1,0 +1,374 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: black;
+                background-image: url("/static/back2.jpeg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                color: white;
+                font-family: sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh; /* Set minimum height to fill the viewport */
+            }
+        
+            .header {
+                background-color: #031259;
+                color: white;
+                padding: 20px;
+                text-align: right;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        
+            .logo {
+                width: 120px;
+                height: auto;
+                margin-right: 10px;
+            }
+        
+            .menu-links {
+                display: flex;
+                justify-content: flex-end;
+            }
+        
+            .menu {
+                display: inline-block;
+                margin-left: 10px;
+                color: gray;
+                font-size: 18px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        
+            .footer {
+                background-color: #031259; /* Updated footer background color */
+                color: green;
+                padding: 20px;
+                text-align: right;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                margin-top: auto;
+            }
+        
+            .container {
+                flex: 1; /* Take remaining vertical space */
+                display: flex;
+                justify-content: space-between;
+                margin: 20px;
+                overflow: hidden; /* Hide content overflow */
+            }
+        
+            .blocks {
+                width: 48%;
+                background-color: transparent;
+                border: 1px solid rgb(219, 219, 219);
+                border-radius: 10px;
+                box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+                padding: 20px;
+                margin-bottom: 20px;
+                overflow: auto; /* Enable scrollable content */
+            }
+        
+            .blocks.left {
+                margin-right: 2%;
+            }
+        
+            .blocks.right {
+                margin-left: 2%;
+            }
+        
+            .blocks h1 {
+                font-size: 32px;
+                font-weight: bold;
+                margin-top: 0;
+                text-align: center;
+            }
+        
+            .blocks-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Align content in the center horizontally */
+                justify-content: center; /* Align content in the center vertically */
+                text-align: center; /* Align text in the center */
+                height: 100%;
+            }
+        
+            .job_description {
+                text-align: justify;
+                line-height: 1.5;
+                font-size: 18px;
+                color: white;
+            }
+        
+            .job_description h1,
+            .job_description h2,
+            .job_description h3 {
+                background-color: #0b4b0b;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+            }
+        
+            .job_description p {
+                margin: 10px 0;
+            }
+        
+            .job_description strong {
+                font-weight: bold;
+            }
+        
+            .job_description em {
+                font-style: italic;
+            }
+        
+            .job_description span {
+                font-weight: bold;
+            }
+        
+            .chat-button {
+                background-color: green;
+                color: black;
+                padding: 10px 20px;
+                border-radius: 50px;
+                font-size: 18px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+            }
+        
+            .chat-button:hover {
+                background-color: #33cc33;
+            }
+        
+            .chat-icon {
+                margin-right: 5px;
+            }
+        </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/static/logo.png" alt="Logo" class="logo">
+        <div class="menu-links">
+            <a class="menu" href="/">Home</a>
+            <a class="menu" href="/services">Services</a>
+            <a class="menu" href="/aboutus">About Us</a>
+            <a class="menu" href="/contact">Contact</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="blocks left">
+            <h1>Chat Box</h1>
+            <div class="clientinput" style="text-align: center;">
+                <input type="text" id="clientinput">
+                <button id="clientsend">Send</button>
+            </div>
+            <p style="text-align: center;">
+                <button type="button" id="record">Record</button>
+                <button type="button" id="stopRecord" disabled>Stop</button>
+            </p>
+            <p class="recordedAudio" style="text-align: center;">
+                <audio id="recordedAudio"></audio>
+            </p>
+            <button id="bgcheck" style="display: none;">Background Check</button>
+            <div class="messages" style="text-align: center;"></div>
+        </div>
+        <div class="blocks right">
+            <h1>Job Description</h1>
+            <p class="job_description"></p>
+            <div class="resume" style="text-align: center;">
+                <h2>Upload Resume</h2>
+                <input type="file" id="resume" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="#" class="chat-button" style="align-items:flex-end;">
+            <span class="chat-icon">Chat Us</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10a9 9 0 0 0-18 0v2a9 9 0 0 0 9 9h2a9 9 0 0 0 9-9v-2zm-9 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+        </a>
+    </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+        <script type="text/javascript" charset="utf-8">
+            
+            var socket = io();
+            socket.on('connect', function() {
+                socket.emit('load', {data: '...Client is connected!...'});
+            });
+
+            socket.on('disconnect', function() {
+                socket.emit('load', {data: '...Client is disconnected!...'});
+            });
+
+            socket.on('client_receive', function(message) {
+                hr_message = message.data
+                document.querySelector('.messages').innerHTML += `<span style="color:white">HR Manager >>></span> <span style="color : red"> ${hr_message} </span> <br>`
+            })
+
+            socket.on('hr_audio', function(data) {
+                let blob = new Blob([data], {type: 'audio/wav'})
+                let audio = document.createElement('audio')
+                audio.src = URL.createObjectURL(blob)
+                audio.controls = true
+                document.querySelector('.messages').appendChild(audio)
+                document.querySelector('.messages').innerHTML += `<br>`
+            })
+
+            socket.on('jd_sent', function(data) {
+                document.querySelector('#resume').removeAttribute('disabled');
+                const jobDescription = data.text;
+                const lines = jobDescription.split('\n');
+                const formattedLines = lines.map(line => {
+                    const words = line.trim().split(/\s+/);
+                    if (words.length < 5) {
+                        return '<strong>' + line + '</strong>';
+                    } else {
+                        return line;
+                    }
+                }).join('<br>');
+
+                document.querySelector('.job_description').innerHTML = `<b>Job Type:</b> ${data.jobtype}` 
+                document.querySelector('.job_description').innerHTML += formattedLines;
+            });
+
+            // replace these with database
+            let resumematchsent = ""
+            let salarysent = ""
+            let capabilitysent = ""
+
+            socket.on('enable_backgroundcheck', (data) => {
+              resumematchsent = data.matchperc
+              salarysent = data.salary
+              capabilitysent = data.capability
+              document.querySelector('#bgcheck').removeAttribute('style')
+            })
+
+            socket.on('offerreceived', (data) => {
+              document.querySelector('#offer').removeAttribute('style')
+              heading = document.createElement('h3')
+              heading.innerHTML = `Congratulations! You received an offer of ${data.salary}.`
+              document.querySelector('#offer .main').appendChild(heading) 
+            })
+
+            document.querySelector('#clientsend').addEventListener('click', function() {
+                const client_message = document.querySelector('#clientinput')
+                document.querySelector('.messages').innerHTML += `<span style="color:white">You >>></span>    <span style="color : blue"> ${client_message.value} </span> <br>` 
+                socket.emit('client_message', {data: client_message.value})
+                client_message.value = " "
+            })
+
+            // Define the configuration for the Web Audio API
+            navigator.mediaDevices.getUserMedia({audio:true})
+            .then(stream => {handlerFunction(stream)})
+
+            function handlerFunction(stream) 
+            {
+                rec = new MediaRecorder(stream);
+                rec.ondataavailable = e => {
+                    audioChunks.push(e.data);
+                    if (rec.state == "inactive"){
+                    let blob = new Blob(audioChunks,{type:'audio/mp3'});
+                    recordedAudio.src = URL.createObjectURL(blob);
+                    recordedAudio.controls=true;
+                    recordedAudio.autoplay=true;
+                    sendData(blob)
+                    }
+                }
+                /*rec = new MediaRecorder(stream, {
+                    mimeType: "audio/wav"
+                });
+
+                rec.ondataavailable = e => {
+                    audioChunks.push(e.data);
+                    if (rec.state == "inactive"){
+                        let blob = new Blob(audioChunks,{type:'audio/wav'});
+                        recordedAudio.src = URL.createObjectURL(blob);
+                        recordedAudio.controls=true;
+                        recordedAudio.autoplay=true;
+                        sendData(blob)
+                    }
+                }*/
+            }
+            
+            function sendData(data) 
+            {
+                let reader = new FileReader()
+                reader.readAsArrayBuffer(data)
+
+                reader.onload = function (event) 
+                {
+                    console.log(event.target.result)
+                    socket.emit('audio', event.target.result)
+                }
+            }
+            
+            record.onclick = e => 
+            {
+                record.disabled = true;
+                record.style.backgroundColor = "blue"
+                stopRecord.disabled=false;
+                audioChunks = [];
+                rec.start();
+            }
+            stopRecord.onclick = e => 
+            {
+                record.disabled = false;
+                stop.disabled=true;
+                record.style.backgroundColor = "red"
+                rec.stop();
+            }
+            let fileInput = document.querySelector('#resume')
+            fileInput.addEventListener('change', () => {
+                console.log('resume uploaded')
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    // When the file has been loaded, send its contents to the server
+                    const pdfData = event.target.result;
+                    socket.emit('resume_upload', { 'data': pdfData });
+                }
+                reader.readAsArrayBuffer(file);
+            })
+
+            document.querySelector('#bgcheck').addEventListener('click', () => {
+                document.querySelector('#bgcheckpopup').removeAttribute('style')
+            })
+
+            document.querySelector('#complete').addEventListener('click', () => {
+                document.querySelector('#bgcheckpopup').setAttribute('style', 'display:none')
+                // emit background check results as well in production
+                socket.emit('bgcheckcomplete', {'salary': salarysent, 'capability': capabilitysent, 'matchperc': resumematchsent})
+            })
+
+            document.querySelector('button#accept').addEventListener('click', () => {
+              console.log(1)
+                document.querySelector('div#offer').setAttribute('style', 'display:none')
+                socket.emit('client_message', {data: 'Candidate accepted the job at the offered salary!'})
+            })
+
+            document.querySelector('#reject').addEventListener('click', () => {
+                document.querySelector('#offer').setAttribute('style', 'display:none')
+                socket.emit('client_message', {data: 'Candidate rejected the offer!'})
+            })
+
+            socket.on('altoffer', (data) => {
+              document.querySelector('#offer').removeAttribute('style')
+              heading = document.createElement('h5')
+              heading.innerHTML = `Congratulations! You received an offer for the job: `
+              heading.innerHTML += '<br>'
+              heading.innerHTML += data.matchperc
+              heading.innerHTML += '<br>'
+              heading.innerHTML += data.text
+              document.querySelector('#offer .main').appendChild(heading)              
+            })
+
+        </script>
+
+    </body>
+</html>

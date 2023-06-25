@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Us</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      background-color: black;
+      background-image: url("/static/back2.jpeg");
+      background-size: 70%;
+      background-repeat: no-repeat;
+      background-position: center center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: #031259;
+      color: white;
+      padding: 20px;
+      text-align: right;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .menu-links {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .menu {
+      display: inline-block;
+      margin-left: 10px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: green;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: white;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: #fff;
+      color: #000;
+      border-radius: 4px;
+    }
+
+    input[type="submit"] {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: darkgreen;
+    }
+
+    .footer {
+      background-color: #031259;
+      color: white;
+      padding: 20px;
+      text-align: right;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .chat-button {
+      background-color: green;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .chat-button:hover {
+      background-color: #33cc33;
+    }
+
+    .chat-icon {
+      margin-right: 5px;
+    }
+
+    /* Chat Popup Styling */
+    .chat-popup {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      max-width: 90%;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-popup.show {
+      display: block;
+    }
+
+    .chat-bar {
+      margin-top: 20px;
+    }
+
+    .chat-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+    }
+
+    .chat-submit {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: green;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-submit:hover {
+      background-color: lightseagreen;
+    }
+  </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/static/logo.png" alt="Logo" class="logo">
+        <div class="menu-links">
+            <a class="menu" href="/">Home</a>
+            <a class="menu" href="/services">Services</a>
+            <a class="menu" href="/aboutus">About Us</a>
+            <a class="menu" href="/contact">Contact</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form action="/contact" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+      <a href="#" class="chat-button" id="chatButton">
+        <span class="chat-icon">Chat Us</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10a9 9 0 0 0-18 0v2a9 9 0 0 0 9 9h2a9 9 0 0 0 9-9v-2zm-9 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Chat Popup HTML -->
+    <div class="chat-popup" id="chatPopup">
+      <h3>Welcome to the Chat!</h3>
+      <p>Start chatting with us.</p>
+      <div class="chat-bar">
+        <textarea class="chat-input" placeholder="Type your message..."></textarea>
+        <button class="chat-submit">Send</button>
+      </div>
+    </div>
+
+    <script>
+      const chatButton = document.getElementById("chatButton");
+      const chatPopup = document.getElementById("chatPopup");
+
+      chatButton.addEventListener("click", function() {
+        chatPopup.classList.toggle("show");
+      });
+    </script>
+</body>
+</html>

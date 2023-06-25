@@ -1,0 +1,224 @@
+<html>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            background-image: url("/static/back2.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 10px;
+    
+}
+
+h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+form {
+    display: inline-block;
+    text-align: left;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #ccc;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: black;
+}
+
+.header {
+    background-color: #031259;
+    color: white;
+    padding: 20px;
+    text-align: right;
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    max-width: 7%;
+    height: auto;
+}
+
+.footer {
+    background-color: #031259;
+    color: green;
+    padding: 20px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.chat-button {
+    background-color: green;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.chat-button:hover {
+    background-color: #33cc33;
+}
+
+.chat-icon {
+    margin-right: 5px;
+}
+
+/* Chat Popup Styling */
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    max-width: 90%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-popup.show {
+    display: block;
+}
+
+.chat-bar {
+    margin-top: 20px;
+}
+
+.chat-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+.chat-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-submit:hover {
+    background-color: lightseagreen;
+}
+</style>
+
+<head>
+<title>Client Login</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <img src="/static/logo.png" alt="Logo" class="logo">
+        <div class="menu-links">
+            <a class="menu" href="/">Home</a>
+            <a class="menu" href="/services">Services</a>
+            <a class="menu" href="/aboutus">About Us</a>
+            <a class="menu" href="/contact">Contact</a>
+        </div>
+    </div>
+
+<div class="container">
+    <h2 style="margin-top: 20px;">Client Login</h2>
+    <form action="/client_login" method="post">
+        <label style="font-weight: bold; ">Username:</label>
+        <input type="text" name="username" required><br>
+        <label style="font-weight: bold;">Password:</label>
+        <input type="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+    <div style="background-color: white; border-radius: 20px; width: 400px; margin: 0 auto; margin-top: 20px; height: 30px;">
+        <p style="color: black;">Not a registered user? <a href="/client_signup" style="color: green;">Sign up here</a></p>
+    </div>
+</div>
+
+<div class="footer">
+    <a href="#" class="chat-button" id="chatButton">
+        <span class="chat-icon">Chat Us</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+                d="M21 10a9 9 0 0 0-18 0v2a9 9 0 0 0 9 9h2a9 9 0 0 0 9-9v-2zm-9 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+        </svg>
+    </a>
+</div>
+
+<!-- Chat Popup HTML -->
+<div class="chat-popup" id="chatPopup">
+    <h3>Welcome to the Chat!</h3>
+    <p>Start chatting with us.</p>
+    <div class="chat-bar">
+        <textarea class="chat-input" placeholder="Type your message..."></textarea>
+        <button class="chat-submit">Send</button>
+    </div>
+</div>
+
+<script>
+    const chatButton = document.getElementById("chatButton");
+    const chatPopup = document.getElementById("chatPopup");
+
+    chatButton.addEventListener("click", function () {
+        chatPopup.classList.toggle("show");
+    });
+</script>
+</body>
